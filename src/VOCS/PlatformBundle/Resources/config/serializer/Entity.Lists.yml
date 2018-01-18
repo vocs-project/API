@@ -1,0 +1,11 @@
+VOCS\PlatformBundle\Entity\Lists:
+    exclusion_policy: none
+    properties:
+        id:
+            groups: ['list', 'classe', 'user', 'demand']
+        name:
+            groups: ['list', 'classe', 'user', 'demand']
+        creationDate:
+            groups: ['list']
+        wordTrads:
+            groups: ['list', 'demand']

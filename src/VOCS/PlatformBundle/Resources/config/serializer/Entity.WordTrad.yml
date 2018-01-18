@@ -1,0 +1,9 @@
+VOCS\PlatformBundle\Entity\WordTrad:
+    exclusion_policy: none
+    properties:
+        id:
+            groups: ['list', 'wordTrad', 'demand']
+        word:
+            groups: ['list', 'wordTrad','demand']
+        trad:
+            groups: ['list', 'wordTrad', 'demand']

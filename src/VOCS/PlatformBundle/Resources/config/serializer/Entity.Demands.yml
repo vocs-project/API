@@ -1,0 +1,15 @@
+VOCS\PlatformBundle\Entity\Demands:
+    exclusion_policy: none
+    properties:
+        id:
+            groups: ['demand']
+        userSend:
+            groups: ['demand']
+        userReceive:
+            groups: ['demand']
+        classe:
+            groups: ['demand']
+        list:
+            groups: ['demand']
+        wordTrad:
+            groups: ['demand']

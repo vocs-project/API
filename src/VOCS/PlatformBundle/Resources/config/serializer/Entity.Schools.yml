@@ -1,0 +1,9 @@
+VOCS\PlatformBundle\Entity\Schools:
+    exclusion_policy: none
+    properties:
+        id:
+            groups: ['school', 'classe']
+        nom:
+            groups: ['school', 'classe']
+        cp:
+            groups: ['school']

@@ -1,0 +1,17 @@
+VOCS\PlatformBundle\Entity\User:
+    exclusion_policy: all
+    properties:
+        id:
+            groups: ['user', 'users', 'classe', 'demand']
+        email:
+            groups: ['user']
+        firstname:
+            groups: ['user', 'users', 'demand', 'classe']
+        surname:
+            groups: ['user', 'users', 'demand', 'classe']
+        roles:
+            groups: ['user', 'users', 'classe', 'demand']
+        classes:
+            groups: ['user']
+        lists:
+            groups: ['user']

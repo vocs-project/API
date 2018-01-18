@@ -1,0 +1,5 @@
+VOCS\PlatformBundle\Entity\Language:
+    exclusion_policy: all
+    properties:
+        code:
+            groups: ['list', 'word','demand']

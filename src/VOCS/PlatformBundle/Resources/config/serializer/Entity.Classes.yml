@@ -1,0 +1,13 @@
+VOCS\PlatformBundle\Entity\Classes:
+    exclusion_policy: all
+    properties:
+        id:
+            groups: ['classe', 'user', 'demand', 'classes']
+        name:
+            groups: ['classe', 'user', 'demand', 'classes']
+        lists:
+            groups: ['classe']
+        users:
+            groups: ['classe']
+        school:
+            groups: ['classe', 'user']
