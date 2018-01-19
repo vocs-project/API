@@ -213,7 +213,7 @@ class Classes implements ObjectManagerAware
                 $wtu->setGoodRepetition(0);
                 $wtu->setBadRepetition(0);
                 $wtu->setLevel(0);
-                $wtu->setUser($this);
+                $wtu->setUser($user);
                 $wtu->setWordTrad($wordTrad);
 
                 $this->em->persist($wtu);
