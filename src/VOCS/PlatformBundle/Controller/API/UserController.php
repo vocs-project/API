@@ -110,9 +110,14 @@ class UserController extends Controller
 
         $user = $this->getDoctrine()->getRepository(User::class)->find($request->get('id'));
         $lists = $user->getLists();
-        $view = View::create($lists);
-        $view->setHeader('Access-Control-Allow-Origin', '*');
-        return $view;
+        foreach ($lists as $list) {
+            foreach ($list->getWordTrads() as $wordTrad) {
+                $wordTradUser = $this->getDoctrine()->getRepository(WordTradUser::class)->findOneBy(array('user' => $request->get('id'), 'wordTrad' => $wordTrad->getId()));
+                $wordTrad->setStat($wordTradUser);
+            }
+        }
+        return $lists;
+
     }
 
 
