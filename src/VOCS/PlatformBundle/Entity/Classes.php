@@ -206,7 +206,7 @@ class Classes implements ObjectManagerAware
      */
     public function addList(\VOCS\PlatformBundle\Entity\Lists $list)
     {
-        $this->lists()->add($list);
+        $this->lists->add($list);
         foreach ($list->getWordTrads() as $wordTrad) {
             foreach ($this->users as $user) {
                 $wtu = new WordTradUser();
