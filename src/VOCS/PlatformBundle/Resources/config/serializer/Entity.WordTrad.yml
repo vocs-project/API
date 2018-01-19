@@ -2,8 +2,10 @@ VOCS\PlatformBundle\Entity\WordTrad:
     exclusion_policy: none
     properties:
         id:
-            groups: ['list', 'wordTrad', 'demand']
+            groups: ['list', 'wordTrad', 'demand', 'wordtraduser']
         word:
             groups: ['list', 'wordTrad','demand']
         trad:
+            groups: ['list', 'wordTrad', 'demand']
+        stat:
             groups: ['list', 'wordTrad', 'demand']

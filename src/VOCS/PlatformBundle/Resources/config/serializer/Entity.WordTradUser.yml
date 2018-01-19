@@ -1,0 +1,15 @@
+VOCS\PlatformBundle\Entity\WordTradUser:
+    exclusion_policy: none
+    properties:
+        id:
+            groups: ['list', 'wordtraduser']
+        level:
+            groups: ['list', 'wordtraduser']
+        goodRepetition:
+            groups: ['list', 'wordtraduser']
+        badRepetition:
+            groups: ['list', 'wordtraduser']
+        user:
+            groups: ['wordtraduser']
+        wordTrad:
+            groups: ['wordtraduser']

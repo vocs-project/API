@@ -2,7 +2,7 @@ VOCS\PlatformBundle\Entity\User:
     exclusion_policy: all
     properties:
         id:
-            groups: ['user', 'users', 'classe', 'demand']
+            groups: ['user', 'users', 'classe', 'demand', 'wordtraduser']
         email:
             groups: ['user']
         firstname:

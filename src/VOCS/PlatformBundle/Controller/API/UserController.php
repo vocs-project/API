@@ -16,6 +16,7 @@ use VOCS\PlatformBundle\Entity\Lists;
 use VOCS\PlatformBundle\Entity\User;
 use VOCS\PlatformBundle\Entity\Words;
 use VOCS\PlatformBundle\Entity\WordTrad;
+use VOCS\PlatformBundle\Entity\WordTradUser;
 use VOCS\PlatformBundle\Form\ClassesType;
 use VOCS\PlatformBundle\Form\LanguageType;
 use VOCS\PlatformBundle\Form\ListsType;
@@ -131,6 +132,10 @@ class UserController extends Controller
 
         $user = $this->getDoctrine()->getRepository(User::class)->find($request->get('id'));
 
+        foreach ($list->getWordTrads() as $wordTrad) {
+            $wordTradUser = $this->getDoctrine()->getRepository(WordTradUser::class)->findOneBy(array('user' => $request->get('id'), 'wordTrad' => $wordTrad->getId()));
+            $wordTrad->setStat($wordTradUser);
+        }
 
         if($user->getLists()->contains($list)) {
             $view = View::create($list);
@@ -332,9 +337,27 @@ class UserController extends Controller
                     $wordTrad->setTrad($trad);
                 }
 
+
+
                 $list->addWordTrad($wordTrad);
                 $em->persist($wordTrad);
+
+                $wtu = new WordTradUser();
+                $wtu->setGoodRepetition(0);
+                $wtu->setBadRepetition(0);
+                $wtu->setLevel(0);
+                $wtu->setUser($user);
+                $wtu->setWordTrad($wordTrad);
+
+                $em->persist($wtu);
+
                 $em->flush();
+
+                foreach ($list->getWordTrads() as $wordTrad) {
+                    $wordTradUser = $this->getDoctrine()->getRepository(WordTradUser::class)->findOneBy(array('user' => $request->get('id'), 'wordTrad' => $wordTrad->getId()));
+                    $wordTrad->setStat($wordTradUser);
+                }
+
                 $view = View::create($list);
 
 

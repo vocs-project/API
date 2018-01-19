@@ -44,12 +44,26 @@ class WordTrad
      */
     private $trad;
 
+
+    /**
+     * @var WordTradUser
+     */
+    private $stat;
+
+
+    public function getStat() {
+        return $this->stat;
+    }
+
+    public function setStat(WordTradUser $wtu) {
+        $this->stat = $wtu;
+    }
+
     /**
      * Get id
      *
      * @return int
      */
-
     public function getId()
 
     {

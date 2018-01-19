@@ -11,6 +11,7 @@ use FOS\RestBundle\Controller\Annotations as Rest;
 use VOCS\PlatformBundle\Entity\Lists;
 use VOCS\PlatformBundle\Entity\Words;
 use VOCS\PlatformBundle\Entity\WordTrad;
+use VOCS\PlatformBundle\Entity\WordTradUser;
 use VOCS\PlatformBundle\Form\ListsType;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use VOCS\PlatformBundle\Form\WordTradType;
@@ -32,10 +33,7 @@ class ListsController extends Controller
     {
         $lists = $this->getDoctrine()->getRepository(Lists::class)->findAll();
 
-        $view = View::create($lists);
-        $view->setHeader('Access-Control-Allow-Origin', '*');
-
-        return $view;
+        return $lists;
     }
 
     /**
@@ -51,11 +49,7 @@ class ListsController extends Controller
     public function getListAction(Request $request)
     {
         $list = $this->getDoctrine()->getRepository(Lists::class)->find($request->get('id'));
-
-        $view = View::create($list);
-        $view->setHeader('Access-Control-Allow-Origin', '*');
-
-        return $view;
+        return $list;
     }
 
 
@@ -88,15 +82,10 @@ class ListsController extends Controller
             // il est utilisé juste par soucis de clarté
             $em->persist($list);
             $em->flush();
-            $view = View::create($list);
-            $view->setHeader('Access-Control-Allow-Origin', '*');
 
-            return $view;
+            return $list;
         } else {
-            $view = View::create($form);
-            $view->setHeader('Access-Control-Allow-Origin', '*');
-
-            return $view;
+            return $form;
         }
 
     }
@@ -249,19 +238,26 @@ class ListsController extends Controller
         if($list->getWordTrads()->contains($wordTrad)) {
             $em = $this->getDoctrine()->getManager();
             $list->removeWordTrad($wordTrad);
+
+            $wtus = $this->getDoctrine()->getRepository(WordTradUser::class)->findBy(array('wordTrad' => $wordTrad->getId()));
+
+            foreach ($wtus as $wtu) {
+                $em->remove($wtu);
+            }
+
             $em->remove($wordTrad);
             $em->flush();
 
-            $view = View::create($wordTrad);
+            return $wordTrad;
         }else {
             $response = [
                 "code" => 404,
                 "message" => "La liste " . $list->getId() . " ne contient le wordTrad " . $wordTrad->getId(),
             ];
-            $view = View::create($response);
+            return $response;
         }
 
-        return $view->setHeader('Access-Control-Allow-Origin', '*');
+
     }
 
 
