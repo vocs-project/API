@@ -2,10 +2,12 @@
 
 namespace VOCS\PlatformBundle\Entity;
 
+use Doctrine\Common\Persistence\Mapping\ClassMetadata;
 use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\Persistence\ObjectManagerAware;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
-use Metadata\ClassMetadata;
+
 
 /**
  * User
@@ -13,7 +15,7 @@ use Metadata\ClassMetadata;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="VOCS\PlatformBundle\Repository\UserRepository")
  */
-class User extends BaseUser
+class User extends BaseUser implements ObjectManagerAware
 {
     /**
      * @var int
@@ -52,7 +54,6 @@ class User extends BaseUser
 
     protected $roles;
 
-
     public function __construct()
     {
         parent::__construct();
@@ -60,10 +61,7 @@ class User extends BaseUser
         $this->classes = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    public function injectObjectManager(
-        ObjectManager $objectManager,
-        ClassMetadata $classMetadata
-    ) {
+    public function injectObjectManager(ObjectManager $objectManager, ClassMetadata $classMetadata ) {
         $this->em = $objectManager;
     }
 
@@ -165,6 +163,7 @@ class User extends BaseUser
     {
 
         $this->classes->add($class);
+
         foreach ($class->getLists() as $list) {
             foreach ($list->getWordTrads() as $wordTrad) {
 

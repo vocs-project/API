@@ -2,6 +2,9 @@
 
 namespace VOCS\PlatformBundle\Entity;
 
+use Doctrine\Common\Persistence\Mapping\ClassMetadata;
+use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Common\Persistence\ObjectManagerAware;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="classes")
  * @ORM\Entity(repositoryClass="VOCS\PlatformBundle\Repository\ClassesRepository")
  */
-class Classes
+class Classes implements ObjectManagerAware
 {
     /**
      * Identifiant de la classe
@@ -151,6 +154,11 @@ class Classes
     {
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
         $this->lists = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+
+    public function injectObjectManager(ObjectManager $objectManager, ClassMetadata $classMetadata ) {
+        $this->em = $objectManager;
     }
 
     /**
