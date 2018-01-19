@@ -138,6 +138,8 @@ class UserController extends Controller
         $user = $this->getDoctrine()->getRepository(User::class)->find($request->get('id'));
 
         foreach ($list->getWordTrads() as $wordTrad) {
+            echo "salut";
+            var_dump($list->getWordTrads());
             $wordTradUser = $this->getDoctrine()->getRepository(WordTradUser::class)->findOneBy(array('user' => $request->get('id'), 'wordTrad' => $wordTrad->getId()));
             $wordTrad->setStat($wordTradUser);
         }
