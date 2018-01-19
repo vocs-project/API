@@ -2,8 +2,10 @@
 
 namespace VOCS\PlatformBundle\Entity;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;
+use Metadata\ClassMetadata;
 
 /**
  * User
@@ -56,6 +58,13 @@ class User extends BaseUser
         parent::__construct();
         $this->lists = new \Doctrine\Common\Collections\ArrayCollection();
         $this->classes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function injectObjectManager(
+        ObjectManager $objectManager,
+        ClassMetadata $classMetadata
+    ) {
+        $this->em = $objectManager;
     }
 
 
@@ -156,7 +165,13 @@ class User extends BaseUser
     {
 
         $this->classes->add($class);
+        foreach ($class->getLists() as $list) {
+            foreach ($list->getWordTrads() as $wordTrad) {
 
+                $wordTradUser = $this->em->getRepository(WordTradUser::class)->findOneBy(array('user' => $this->get('id'), 'wordTrad' => $wordTrad->getId()));
+                $wordTrad->setStat($wordTradUser);
+            }
+        }
         return $this;
     }
 

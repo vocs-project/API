@@ -199,6 +199,7 @@ class Classes
     public function addList(\VOCS\PlatformBundle\Entity\Lists $list)
     {
         $this->lists->add($list);
+
         return $this;
     }
 

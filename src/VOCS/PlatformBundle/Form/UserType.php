@@ -54,7 +54,8 @@ class UserType extends AbstractType
             ))
             ->add('classes', EntityType::class, array(
                 'class' => 'VOCSPlatformBundle:Classes',
-                'multiple' => true
+                'multiple' => true,
+                'by_reference' => false
             ))
             ->remove('username');
     }
