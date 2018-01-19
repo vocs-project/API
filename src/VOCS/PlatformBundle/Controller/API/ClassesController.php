@@ -140,19 +140,13 @@ class ClassesController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            // l'entité vient de la base, donc le merge n'est pas nécessaire.
-            // il est utilisé juste par soucis de clarté
             $em->persist($classe);
             $em->flush();
-            $view = View::create($classe);
-            $view->setHeader('Access-Control-Allow-Origin', '*');
+            return $classe;
 
-            return $view;
         } else {
-            $view = View::create($form);
-            $view->setHeader('Access-Control-Allow-Origin', '*');
+            return $form;
 
-            return $view;
         }
 
     }

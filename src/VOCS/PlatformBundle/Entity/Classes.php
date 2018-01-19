@@ -220,7 +220,7 @@ class Classes implements ObjectManagerAware
             }
 
         }
-        $this->em->flush();
+
         return $this;
     }
 

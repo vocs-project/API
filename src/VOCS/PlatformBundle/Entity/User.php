@@ -178,7 +178,7 @@ class User extends BaseUser implements ObjectManagerAware
 
             }
         }
-        $this->em->flush();
+
         return $this;
     }
 
