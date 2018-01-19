@@ -55,6 +55,12 @@ class Lists
 
 
     /**
+     *
+     * @ORM\ManyToMany(targetEntity="Classes", mappedBy="lists")
+     */
+    private $classes;
+
+    /**
      * Get id
      *
      * @return int
@@ -118,6 +124,7 @@ class Lists
     {
         $this->wordTrads = new \Doctrine\Common\Collections\ArrayCollection();
         $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->classes = new \Doctrine\Common\Collections\ArrayCollection();
         $this->setCreationDate(new \DateTime());
     }
 
@@ -188,5 +195,38 @@ class Lists
     public function getWordTrads()
     {
         return $this->wordTrads;
+    }
+
+    /**
+     * Add class
+     *
+     * @param \VOCS\PlatformBundle\Entity\Classes $class
+     *
+     * @return Lists
+     */
+    public function addClass(\VOCS\PlatformBundle\Entity\Classes $class)
+    {
+        $this->classes->add($class);
+        return $this;
+    }
+
+    /**
+     * Remove class
+     *
+     * @param \VOCS\PlatformBundle\Entity\Classes $class
+     */
+    public function removeClass(\VOCS\PlatformBundle\Entity\Classes $class)
+    {
+        $this->classes->removeElement($class);
+    }
+
+    /**
+     * Get classes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getClasses()
+    {
+        return $this->classes;
     }
 }

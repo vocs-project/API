@@ -47,12 +47,8 @@ class Classes implements ObjectManagerAware
     private $users;
 
     /**
-     *
-     * @ORM\ManyToMany(targetEntity="Lists", cascade={"persist", "merge"})
-     * @ORM\JoinTable(name="classes_lists",
-     *      joinColumns={@ORM\JoinColumn(name="classes_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="lists_id", referencedColumnName="id")}
-     *      )
+     * @ORM\ManyToMany(targetEntity="Lists", inversedBy="classes", cascade={"persist"})
+     * @ORM\JoinTable(name="classes_lists")
      */
     private $lists;
 
@@ -157,7 +153,8 @@ class Classes implements ObjectManagerAware
     }
 
 
-    public function injectObjectManager(ObjectManager $objectManager, ClassMetadata $classMetadata ) {
+    public function injectObjectManager(ObjectManager $objectManager, ClassMetadata $classMetadata)
+    {
         $this->em = $objectManager;
     }
 
@@ -207,6 +204,7 @@ class Classes implements ObjectManagerAware
     public function addList(\VOCS\PlatformBundle\Entity\Lists $list)
     {
         $this->lists->add($list);
+        $list->addClass($this);
         foreach ($list->getWordTrads() as $wordTrad) {
             foreach ($this->users as $user) {
                 $wtu = new WordTradUser();
