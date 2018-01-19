@@ -139,8 +139,9 @@ class UserController extends Controller
 
         foreach ($list->getWordTrads() as $wordTrad) {
             echo "salut";
-            var_dump($list->getWordTrads());
+
             $wordTradUser = $this->getDoctrine()->getRepository(WordTradUser::class)->findOneBy(array('user' => $request->get('id'), 'wordTrad' => $wordTrad->getId()));
+            echo $wordTradUser->getId();
             $wordTrad->setStat($wordTradUser);
         }
 
