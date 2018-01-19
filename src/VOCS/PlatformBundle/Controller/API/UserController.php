@@ -142,19 +142,11 @@ class UserController extends Controller
             $wordTrad->setStat($wordTradUser);
         }
 
-        if($user->getLists()->contains($list)) {
-            $view = View::create($list);
-        }
-        else {
-            $reponse = [
-                "code" => "404",
-                "message" => "l'user " . $request->get('id') . " n'a pas de liste " . $request->get('list_id')
-            ];
-            $view = View::create($reponse);
-            $view->setStatusCode(404);
-        }
 
-        return $view;
+         return $list;
+
+
+
     }
 
 
