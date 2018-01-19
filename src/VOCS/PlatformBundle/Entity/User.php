@@ -168,10 +168,18 @@ class User extends BaseUser
         foreach ($class->getLists() as $list) {
             foreach ($list->getWordTrads() as $wordTrad) {
 
-                $wordTradUser = $this->em->getRepository(WordTradUser::class)->findOneBy(array('user' => $this->get('id'), 'wordTrad' => $wordTrad->getId()));
-                $wordTrad->setStat($wordTradUser);
+                $wtu = new WordTradUser();
+                $wtu->setGoodRepetition(0);
+                $wtu->setBadRepetition(0);
+                $wtu->setLevel(0);
+                $wtu->setUser($this);
+                $wtu->setWordTrad($wordTrad);
+
+                $this->em->persist($wtu);
+
             }
         }
+        $this->em->flush();
         return $this;
     }
 

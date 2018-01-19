@@ -198,8 +198,21 @@ class Classes
      */
     public function addList(\VOCS\PlatformBundle\Entity\Lists $list)
     {
-        $this->lists->add($list);
 
+        foreach ($list->getWordTrads() as $wordTrad) {
+            foreach ($this->users as $user) {
+                $wtu = new WordTradUser();
+                $wtu->setGoodRepetition(0);
+                $wtu->setBadRepetition(0);
+                $wtu->setLevel(0);
+                $wtu->setUser($this);
+                $wtu->setWordTrad($wordTrad);
+
+                $this->em->persist($wtu);
+            }
+
+        }
+        $this->em->flush();
         return $this;
     }
 
