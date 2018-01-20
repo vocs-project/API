@@ -144,7 +144,7 @@ class UserController extends Controller
         }
 
 
-         return $list;
+        return $list;
 
 
 
@@ -186,6 +186,33 @@ class UserController extends Controller
 
     }
 
+
+
+    /**
+     * @ApiDoc(
+     *     section="User",
+     *     description="Récupère la  hardliste de l'utilisateur",
+     *     output= { "class"=Listes::class, "collection"=false, "groups"={"list"} }
+     *     )
+     *
+     * @Rest\View(serializerGroups={"list"})
+     * @Rest\Get("/rest/users/{id}/hardlist")
+     */
+    public function getUserHardListAction(Request $request)
+    {
+        $user = $this->getDoctrine()->getRepository(User::class)->find($request->get('id'));
+        $list = new Lists();
+        $list->setName("HardList");
+
+        $wordTradUser = $this->getDoctrine()->getRepository(WordTradUser::class)->getWordTradUserHardList($user);
+        foreach ($wordTradUser as $wtu) {
+            $wt = $this->getDoctrine()->getRepository(WordTrad::class)->find($wtu->getWordTrad()->getId());
+            $wt->setStat($wtu);
+            $list->addWordTrad($wt);
+        }
+
+        return $list;
+    }
 
     /**
      * @ApiDoc(
