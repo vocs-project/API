@@ -120,6 +120,32 @@ class UserController extends Controller
 
     }
 
+ /**
+     *@ApiDoc(
+     *     section="User",
+     *     description="Récupère tous les listes de la classe d'un utilisateur",
+     *     output= { "class"=Listes::class, "collection"=true, "groups"={"list"} }
+     *     )
+     *
+     * @Rest\View(serializerGroups={"list"})
+     * @Rest\Get("/rest/users/{id}/classes/{class_id}/lists")
+     */
+    public function getClassListsAction(Request $request)
+    {
+
+        $class = $this->getDoctrine()->getRepository(Classes::class)->find($request->get('class_id'));
+
+        $lists = $class->getLists();
+        foreach ($lists as $list) {
+            foreach ($list->getWordTrads() as $wordTrad) {
+                $wordTradUser = $this->getDoctrine()->getRepository(WordTradUser::class)->findOneBy(array('user' => $request->get('id'), 'wordTrad' => $wordTrad->getId()));
+                $wordTrad->setStat($wordTradUser);
+            }
+        }
+        return $lists;
+
+    }
+
 
     /**
      * @ApiDoc(

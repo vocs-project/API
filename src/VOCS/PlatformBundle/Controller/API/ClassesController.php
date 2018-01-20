@@ -79,13 +79,6 @@ class ClassesController extends Controller
         $classe = $this->getDoctrine()->getRepository(Classes::class)->find($request->get('id'));
         $lists = $classe->getLists();
 
-        foreach ($lists as $list) {
-            foreach ($list->getWordTrads() as $wordTrad) {
-                $wordTradUser = $this->getDoctrine()->getRepository(WordTradUser::class)->findOneBy(array('user' => $request->get('id'), 'wordTrad' => $wordTrad->getId()));
-                $wordTrad->setStat($wordTradUser);
-            }
-        }
-
         return $lists;
     }
 
@@ -104,10 +97,6 @@ class ClassesController extends Controller
         $classe = $this->getDoctrine()->getRepository(Classes::class)->find($request->get('id'));
         $list = $this->getDoctrine()->getRepository(Lists::class)->find($request->get('list_id'));
 
-        foreach ($list->getWordTrads() as $wordTrad) {
-            $wordTradUser = $this->getDoctrine()->getRepository(WordTradUser::class)->findOneBy(array('user' => $request->get('id'), 'wordTrad' => $wordTrad->getId()));
-            $wordTrad->setStat($wordTradUser);
-        }
 
         if($classe->getLists()->contains($list)) {
             $view = View::create($list);
