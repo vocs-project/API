@@ -67,10 +67,10 @@ class ClassesController extends Controller
      * @ApiDoc(
      *     section="Classes",
      *     description="Récupère les listes d'une classe",
-     *     output= { "class"=Classes::class, "collection"=true, "groups"={"classe"} }
+     *     output= { "class"=Classes::class, "collection"=true, "groups"={"list"} }
      *     )
      *
-     * @Rest\View(serializerGroups={"classe"})
+     * @Rest\View(serializerGroups={"list"})
      * @Rest\Get("/rest/classes/{id}/lists")
      */
     public function getClasseListsAction(Request $request)
@@ -78,10 +78,7 @@ class ClassesController extends Controller
         $classe = $this->getDoctrine()->getRepository(Classes::class)->find($request->get('id'));
         $lists = $classe->getLists();
 
-        $view = View::create($lists);
-        $view->setHeader('Access-Control-Allow-Origin', '*');
-
-        return $view;
+        return $lists;
     }
 
  /**
