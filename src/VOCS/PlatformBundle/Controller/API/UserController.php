@@ -336,6 +336,15 @@ class UserController extends Controller
                 }
 
 
+                $wtu = new WordTradUser();
+                $wtu->setGoodRepetition(0);
+                $wtu->setBadRepetition(0);
+                $wtu->setLevel(0);
+                $wtu->setUser($user);
+                $wtu->setWordTrad($wordTrad);
+
+                $em->persist($wtu);
+
 
                 $list->addWordTrad($wordTrad);
                 $em->persist($wordTrad);
@@ -343,14 +352,17 @@ class UserController extends Controller
                 foreach ($list->getWordTrads() as $wordTrad) {
                     foreach ($list->getClasses() as $class) {
                         foreach ($class->getUsers() as $userClass) {
-                            $wtu = new WordTradUser();
-                            $wtu->setGoodRepetition(0);
-                            $wtu->setBadRepetition(0);
-                            $wtu->setLevel(0);
-                            $wtu->setUser($userClass);
-                            $wtu->setWordTrad($wordTrad);
+                            if ($userClass != $user) {
+                                $wtu = new WordTradUser();
+                                $wtu->setGoodRepetition(0);
+                                $wtu->setBadRepetition(0);
+                                $wtu->setLevel(0);
+                                $wtu->setUser($userClass);
+                                $wtu->setWordTrad($wordTrad);
 
-                            $em->persist($wtu);
+                                $em->persist($wtu);
+                            }
+
                         }
                     }
                 }
