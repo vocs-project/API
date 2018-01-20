@@ -16,9 +16,8 @@ class WordTradUserType extends AbstractType
         $builder
             ->add('level')
             ->add('goodRepetition')
-            ->add('badRepetition')
-            ->add('user')
-            ->add('wordTrad');
+            ->add('badRepetition');
+
     }
     
     /**
