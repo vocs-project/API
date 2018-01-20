@@ -245,6 +245,7 @@ class ListsController extends Controller
                 $em->remove($wtu);
             }
 
+
             $em->remove($wordTrad);
             $em->flush();
 

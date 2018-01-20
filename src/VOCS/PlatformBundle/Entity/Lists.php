@@ -48,7 +48,7 @@ class Lists
      * @ORM\ManyToMany(targetEntity="WordTrad")
      * @ORM\JoinTable(name="list_wordTrad",
      *      joinColumns={@ORM\JoinColumn(name="list_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="wordTrad_id", referencedColumnName="id", unique=true)}
+     *      inverseJoinColumns={@ORM\JoinColumn(name="wordTrad_id", referencedColumnName="id", unique=true, onDelete="CASCADE")}
      *      )
      */
     private $wordTrads;
