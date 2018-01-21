@@ -486,21 +486,8 @@ class UserController extends Controller
             $em->flush();
 
 
-            $words = $list->getWords();
-            $wordsArray = [];
-            $tradsArray = [];
-            foreach ($words as $word) {
-                foreach ($word->getTrads() as $trad) {
-                    $tradsArray[] = ['content' => $trad->getContent(), 'lang' => $trad->getLanguage()->getCode(),];
-                }
-                $wordsArray[] = ['content' => $word->getContent(), 'lang' => $word->getLanguage()->getCode(), 'trads' => $tradsArray,];
-                $tradsArray = null;
-            }
-
-            $formatted = ['id' => $list->getId(), 'name' => $list->getName(), 'words' => $wordsArray,];
-
             // Création d'une vue FOSRestBundle
-            return View::create($formatted)->setHeader('Access-Control-Allow-Origin', '*');
+            return $list;
 
 
         }
